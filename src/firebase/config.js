@@ -4,24 +4,16 @@ import { getAuth, FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// Verificar se as variáveis de ambiente estão carregadas corretamente
-// e usar valores de fallback quando necessário
+// Configuração usando variáveis de ambiente
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyCrfU0yKnScQTN76QhZUO3xRk8EWHRZjrs",
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "agrodoacao.firebaseapp.com",
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "agrodoacao",
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "agrodoacao.firebasestorage.app",
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "1020927272918",
-    appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:1020927272918:web:937a6c091f0c494afb6677",
-    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || "G-10SXPKTEJS"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
-
-// Verifica se a configuração do Firebase está completa
-console.log("Firebase config status:", {
-    apiKey: !!firebaseConfig.apiKey,
-    authDomain: !!firebaseConfig.authDomain,
-    projectId: !!firebaseConfig.projectId
-});
 
 // Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
