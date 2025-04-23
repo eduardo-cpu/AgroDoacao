@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users: each user can create/read/update only their own profile
+    match /users/{userId} {
+      allow create: if request.auth.uid == userId;
+      allow read, update: if request.auth.uid == userId;
+    }
+
+    // Farms: farmer may create/update/delete their own farms (where ownerId matches the farmer's ID)
+    match /farms/{farmId} {
+      // Create: permitir que agricultores criem fazendas onde ownerId seja igual ao ID do usuário
+      allow create: if request.auth.uid != null
+                    && request.resource.data.ownerId == request.auth.uid
+                    && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'farmer';
+      
+      // Read: permitir que todos leiam
+      allow read: if true;
+      
+      // Update/Delete: permitir apenas para o proprietário da fazenda
+      allow update, delete: if request.auth.uid != null && 
+                    resource.data.ownerId == request.auth.uid;
+    }
+
+    // Products: only farmer owner can create/update/delete, consumers can read available products
+    match /products/{productId} {
+      // Creation: farmId in data must match a farm owned by the authenticated farmer
+      allow create: if request.auth.uid != null
+                    && exists(/databases/$(database)/documents/farms/$(request.resource.data.farmId))
+                    && get(/databases/$(database)/documents/farms/$(request.resource.data.farmId)).data.ownerId == request.auth.uid
+                    && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'farmer';
+      
+      // Read: available to everyone if isAvailable, or to owner of the farm
+      allow read: if (resource.data.isAvailable == true) || 
+                  (request.auth.uid != null && 
+                   get(/databases/$(database)/documents/farms/$(resource.data.farmId)).data.ownerId == request.auth.uid);
+      
+      // Update/Delete: apenas o proprietário da fazenda
+      allow update, delete: if request.auth.uid != null && 
+                    get(/databases/$(database)/documents/farms/$(resource.data.farmId)).data.ownerId == request.auth.uid;
+    }
+
+    // ProductImages: accessible to all for reading, but only farmers can create/update
+    match /productImages/{imageId} {
+      // Read: permitir que todos leiam imagens de produtos
+      allow read: if true;
+      
+      // Create/Update: apenas agricultores podem adicionar/atualizar imagens
+      allow create, update: if request.auth.uid != null &&
+                             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'farmer';
+      
+      // Delete: ninguém pode excluir imagens (para manter consistência)
+      allow delete: if false;
+    }
+
+    // Reservations: users can create their own reservations, and read/update only their own reservations
+    // Farmers can read reservations for their products
+    match /reservations/{reservationId} {
+      // Create: authenticated users can create reservations
+      allow create: if request.auth.uid != null
+                    && request.resource.data.userId == request.auth.uid;
+      
+      // Read: users can read their own reservations, farmers can read reservations for their products
+      allow read: if request.auth.uid != null &&
+                  (resource.data.userId == request.auth.uid || 
+                   resource.data.farmerId == request.auth.uid);
+      
+      // Update: users can update only their own reservations with specific status
+      allow update: if request.auth.uid != null &&
+                     ((resource.data.userId == request.auth.uid && 
+                       resource.data.status == 'pending' &&
+                       request.resource.data.status == 'cancelled') ||
+                      (resource.data.farmerId == request.auth.uid));
+                     
+      // Delete: no one can delete reservations to maintain history
+      allow delete: if false;
+    }
+
+    // Notifications: only farmer owner can read/mark-as-read; creation from backend only
+    match /notifications/{notifId} {
+      allow read, update: if request.auth.uid == resource.data.farmId;
+      allow create: if false;
+    }
+  }
+}

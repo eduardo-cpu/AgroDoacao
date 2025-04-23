@@ -1,0 +1,94 @@
+/* Estilos para a página de perfil do produtor rural */
+
+.profile-page {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  background: linear-gradient(to right, rgba(46, 125, 50, 0.1), rgba(56, 142, 60, 0.05));
+  border-left: 4px solid #2e7d32;
+}
+
+.profile-stats {
+  margin-top: 20px;
+}
+
+.stat-card {
+  text-align: center;
+  transition: transform 0.2s ease;
+  border-radius: 8px;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Estilos das abas */
+.tab-button {
+  color: #555;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-button.active {
+  color: #2e7d32;
+  background-color: #e8f5e9;
+  border-bottom: 3px solid #2e7d32;
+  font-weight: 600;
+}
+
+.tab-button:hover:not(.active) {
+  background-color: #f1f9f2;
+  color: #2e7d32;
+}
+
+.tab-content {
+  min-height: 300px;
+}
+
+/* Estilos para cards de fazenda no perfil */
+.farm-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+}
+
+.farm-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para item de informação da fazenda */
+.farm-info-item {
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.farm-info-item:last-child {
+  border-bottom: none;
+}
+
+.farm-products-count {
+  display: flex;
+  align-items: center;
+}
+
+/* Estado vazio para quando não há dados */
+.empty-state {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+/* Estilos para notificações */
+.notification-card {
+  transition: all 0.2s ease;
+}
+
+.notification-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}

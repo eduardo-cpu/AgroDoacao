@@ -1,0 +1,146 @@
+/* Buttons */
+.card-button, .form-button, .cta-button, .search-button, .action-button, .request-button, .map-button, .view-details-button {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+  display: inline-block;
+  box-shadow: var(--box-shadow);
+}
+
+.card-button:hover, .form-button:hover, .cta-button:hover, .search-button:hover, .action-button:hover, .request-button:hover, .map-button:hover, .view-details-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.action-button.edit {
+  background-color: #1976d2;
+  margin-right: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.action-button.delete {
+  background-color: var(--danger-color);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  color: var(--primary-color);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.back-button:hover {
+  color: var(--primary-dark);
+  background-color: rgba(46, 125, 50, 0.1);
+  border-radius: var(--border-radius);
+}
+
+.cta-button {
+  margin-top: 30px;
+  background-color: var(--secondary-color);
+  font-size: 1.1rem;
+  padding: 15px 40px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: #f57c00;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.request-button {
+  background-color: var(--secondary-color);
+}
+
+.request-button:hover {
+  background-color: #f57c00;
+}
+
+.map-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-button:before {
+  content: "🗺️";
+}
+
+.review-button {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 10px 25px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.review-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+  gap: 10px;
+}
+
+.pagination-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.pagination-button.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.pagination-next {
+  width: auto;
+  border-radius: 20px;
+  padding: 0 15px;
+}
